@@ -67,14 +67,14 @@ export default function PaymentSect() {
             <h2 className="text-[20px]  font-bold text-[#25B836] font-manrope">
               Deposits
             </h2>
-            <div className="flex gap-2 ">
+            <div className="flex gap-2">
               <button className="px-3 py-1 rounded-full text-[12px]  font-medium  font-manrope bg-[#E0FCFF] text-[#208892]  border-2 border-[#208892]">
                 Daily
               </button>
-              <button className=" px-3 py-1 rounded-full text-[12px]  font-medium  font-manrope text-[#BEBEBE] bg-[#FEFEFE]  border-2 border-[#BEBEBE]">
+              <button className="px-3 py-1 rounded-full text-[12px]  font-medium  font-manrope  text-[#BEBEBE]  bg-[#FEFEFE] border-2 border-[#BEBEBE]">
                 Monthly
               </button>
-              <button className="px-3 py-1 rounded-full text-[12px]  font-medium  font-manrope text-[#BEBEBE]  border-2 bg-[#FEFEFE] border-[#BEBEBE]">
+              <button className="px-3 py-1 rounded-full text-[12px]  font-medium  font-manrope text-[#BEBEBE] bg-[#FEFEFE]  border-2 border-[#BEBEBE]">
                 Yearly
               </button>
             </div>

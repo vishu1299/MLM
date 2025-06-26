@@ -63,7 +63,7 @@ const menuItems: MenuItem[] = [
         label: "Users Emiral Plans",
         href: "/manage-users/emiral-plans",
       },
-      { id: "user-ranks", label: "User Ranks", href: "/manage-users/ranks" },
+      { id: "user-ranks", label: "User Ranks", href: "/manage-users/rank" },
       {
         id: "banned-users",
         label: "Banned Users",

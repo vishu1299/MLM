@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import {
   Table,
   TableBody,
@@ -16,15 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -36,21 +28,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Search,
-  Filter,
   MoreHorizontal,
   User,
   Mail,
   Phone,
   MapPin,
   Calendar,
-  DollarSign,
   Star,
   Eye,
   Edit,
   Trash2,
   Download,
   RefreshCw,
+  MailX,
+  ShieldX,
+  Clock,
+  ArrowUpRight,
 } from "lucide-react";
 
 interface UserData {
@@ -137,25 +130,9 @@ const mockUsers: UserData[] = [
 ];
 
 export default function UsersTable() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [countryFilter, setCountryFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
-
   const filteredUsers = useMemo(() => {
-    return mockUsers.filter((user) => {
-      const matchesSearch =
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase());
-
-      const matchesCountry =
-        countryFilter === "all" || user.countryCode === countryFilter;
-      const matchesStatus =
-        statusFilter === "all" || user.status === statusFilter;
-
-      return matchesSearch && matchesCountry && matchesStatus;
-    });
-  }, [searchTerm, countryFilter, statusFilter]);
+    return mockUsers;
+  }, []);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -193,13 +170,13 @@ export default function UsersTable() {
   };
 
   return (
-    <div className="min-h-screen ">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
         {/* Header Section */}
-        <div className="flex flex-col space-y-6">
+        <div className="flex flex-col space-y-4">
           <div className="flex items-center justify-between">
-            <div className="space-y-2">
-              <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
+            <div className="space-y-1">
+              <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
                 Emiral Plan Users
               </h1>
               <p className="text-gray-600">
@@ -207,83 +184,161 @@ export default function UsersTable() {
               </p>
             </div>
             <div className="flex items-center space-x-3">
-              <Button variant="outline" size="default" className="h-10">
+              <Button
+                variant="outline"
+                size="default"
+                className="border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white transition-colors"
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
-              <Button variant="outline" size="default" className="h-10">
+              <Button
+                variant="outline"
+                size="default"
+                className="border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white transition-colors"
+              >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
             </div>
           </div>
 
-          {/* Filters Card */}
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="pb-6">
-              <CardTitle className="text-xl flex items-center text-gray-800">
-                <Filter className="w-5 h-5 mr-3 text-gray-600" />
-                Filters & Search
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="flex flex-col lg:flex-row gap-6">
-                <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <Input
-                      placeholder="Search by username, name, or email..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-12 h-12 text-base border-gray-200 focus:border-gray-300"
-                    />
+          {/* Compact Status Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {/* mobile Unverified Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-transparent to-transparent"></div>
+              <div className="absolute top-0 right-0 w-12 h-12 bg-purple-100 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                      <MailX className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">
+                        Mobile Unverified
+                      </h3>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <div className="text-xl font-bold text-gray-900">
+                          299
+                        </div>
+                        <Badge className="bg-purple-50 text-purple-700 border-purple-200 text-xs px-2 py-0.5">
+                          High Priority
+                        </Badge>
+                      </div>
+                    </div>
                   </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-purple-600 transition-colors" />
                 </div>
-                <Select value={countryFilter} onValueChange={setCountryFilter}>
-                  <SelectTrigger className="w-full lg:w-56 h-12 border-gray-200">
-                    <SelectValue placeholder="Filter by country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Countries</SelectItem>
-                    <SelectItem value="AF">🇦🇫 Afghanistan</SelectItem>
-                    <SelectItem value="NG">🇳🇬 Nigeria</SelectItem>
-                    <SelectItem value="US">🇺🇸 United States</SelectItem>
-                    <SelectItem value="ES">🇪🇸 Spain</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-full lg:w-56 h-12 border-gray-200">
-                    <SelectValue placeholder="Filter by status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                    <SelectItem value="suspended">Suspended</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+            {/* Email Unverified Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-50 via-transparent to-transparent"></div>
+              <div className="absolute top-0 right-0 w-12 h-12 bg-red-100 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-red-100 rounded-lg group-hover:bg-red-200 transition-colors">
+                      <MailX className="w-4 h-4 text-red-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">
+                        Email Unverified
+                      </h3>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <div className="text-xl font-bold text-gray-900">
+                          247
+                        </div>
+                        <Badge className="bg-red-50 text-red-700 border-red-200 text-xs px-2 py-0.5">
+                          High Priority
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 transition-colors" />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* KYC Unverified Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-transparent to-transparent"></div>
+              <div className="absolute top-0 right-0 w-12 h-12 bg-amber-100 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-amber-100 rounded-lg group-hover:bg-amber-200 transition-colors">
+                      <ShieldX className="w-4 h-4 text-amber-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">
+                        KYC Unverified
+                      </h3>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <div className="text-xl font-bold text-gray-900">
+                          156
+                        </div>
+                        <Badge className="bg-amber-50 text-amber-700 border-amber-200 text-xs px-2 py-0.5">
+                          Action Required
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors" />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* KYC Pending Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0fa3ba]/10 via-transparent to-transparent"></div>
+              <div className="absolute top-0 right-0 w-12 h-12 bg-[#0fa3ba]/20 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-[#0fa3ba]/10 rounded-lg group-hover:bg-[#0fa3ba]/20 transition-colors">
+                      <Clock className="w-4 h-4 text-[#0fa3ba]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-sm">
+                        KYC Pending
+                      </h3>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <div className="text-xl font-bold text-gray-900">
+                          89
+                        </div>
+                        <Badge className="bg-[#0fa3ba]/10 text-[#0fa3ba] border-[#0fa3ba]/20 text-xs px-2 py-0.5">
+                          In Progress
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#0fa3ba] transition-colors" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         {/* Table Card */}
-        <Card className="border-gray-200 shadow-sm">
-          <CardHeader className="pb-6">
+        <Card className="border-gray-200 shadow-lg bg-white">
+          <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-xl text-gray-800">
                   Users Overview
                 </CardTitle>
-                <CardDescription className="text-base mt-2">
+                <CardDescription className="mt-1">
                   {filteredUsers.length} users found
                 </CardDescription>
               </div>
               <Badge
                 variant="secondary"
-                className="text-sm px-4 py-2 bg-gray-50 text-gray-700"
+                className="px-3 py-1 bg-[#0fa3ba]/10 text-[#0fa3ba] border-[#0fa3ba]/20"
               >
-                Total Balance: $
+                Total Balance: ₦
                 {filteredUsers
                   .reduce((sum, user) => sum + user.balance, 0)
                   .toLocaleString()}
@@ -294,50 +349,50 @@ export default function UsersTable() {
             <div className="rounded-lg border border-gray-200 overflow-hidden">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-gray-50/50 hover:bg-gray-50/50 border-b border-gray-200">
-                    <TableHead className="w-20 py-6 px-6 font-semibold text-gray-700">
+                  <TableRow className="bg-[#0fa3ba]/5 hover:bg-[#0fa3ba]/5 border-b border-[#0fa3ba]/10">
+                    <TableHead className="w-16 py-4 px-4 font-bold text-sm text-gray-700">
                       #
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[280px]">
-                      <div className="flex items-center">
-                        <User className="w-4 h-4 mr-2 text-gray-500" />
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[280px]">
+                      <div className="flex items-center ">
+                        <User className="w-5 h-5 mr-2 text-black" />
                         User Details
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[260px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[260px]">
                       <div className="flex items-center">
-                        <Mail className="w-4 h-4 mr-2 text-gray-500" />
+                        <Mail className="w-5 h-5 mr-2 text-black" />
                         Contact Information
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[160px]">
                       <div className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-2 text-gray-500" />
+                        <MapPin className="w-5 h-5 mr-2 text-black" />
                         Country
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[180px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[180px]">
                       <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-2 text-gray-500" />
+                        <Calendar className="w-5 h-5 mr-2 text-black" />
                         Joined Date
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[140px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[140px]">
                       <div className="flex items-center">
-                        <DollarSign className="w-4 h-4 mr-2 text-gray-500" />
+                        <div className="text-xl mr-2 text-black">₦</div>
                         Balance
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[160px]">
                       <div className="flex items-center">
-                        <Star className="w-4 h-4 mr-2 text-gray-500" />
+                        <Star className="w-5 h-5 mr-2 text-black" />
                         Emiral Points
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[120px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[120px]">
                       Status
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 text-center min-w-[160px]">
+                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 text-center min-w-[160px]">
                       Actions
                     </TableHead>
                   </TableRow>
@@ -346,20 +401,20 @@ export default function UsersTable() {
                   {filteredUsers.map((user, index) => (
                     <TableRow
                       key={user.id}
-                      className="hover:bg-gray-50/30 transition-colors border-b border-gray-100"
+                      className="hover:bg-[#0fa3ba]/5 transition-colors border-b border-gray-100"
                     >
-                      <TableCell className="py-6 px-6">
-                        <span className="font-medium text-gray-500 text-base">
+                      <TableCell className="py-4 px-4">
+                        <span className="font-medium text-gray-500">
                           {index + 1}
                         </span>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
-                        <div className="flex items-center space-x-4">
-                          <Avatar className="w-12 h-12">
+                      <TableCell className="py-4 px-4">
+                        <div className="flex items-center space-x-3">
+                          <Avatar className="w-10 h-10">
                             <AvatarImage
                               src={user.avatar || "/placeholder.svg"}
                             />
-                            <AvatarFallback className="bg-gradient-to-br from-green-400 to-green-300 text-white font-semibold">
+                            <AvatarFallback className="bg-gradient-to-br from-[#0fa3ba] to-[#0fa3ba]/80 text-white font-semibold text-sm">
                               {user.name
                                 .split(" ")
                                 .map((n) => n[0])
@@ -368,40 +423,40 @@ export default function UsersTable() {
                             </AvatarFallback>
                           </Avatar>
                           <div className="space-y-1">
-                            <div className="font-semibold text-gray-900 text-base">
+                            <div className="font-semibold text-gray-900 text-sm">
                               {user.name}
                             </div>
-                            <div className="text-sm text-green-400 font-medium">
+                            <div className="text-xs text-[#0fa3ba] font-medium">
                               @{user.username}
                             </div>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
-                        <div className="space-y-2">
-                          <div className="flex items-center text-sm text-gray-700">
-                            <Mail className="w-4 h-4 mr-3 text-gray-400" />
+                      <TableCell className="py-4 px-4">
+                        <div className="space-y-1">
+                          <div className="flex items-center text-xs text-gray-700">
+                            <Mail className="w-3 h-3 mr-2 text-[#0fa3ba]/60" />
                             <span className="truncate">{user.email}</span>
                           </div>
-                          <div className="flex items-center text-sm text-gray-600">
-                            <Phone className="w-4 h-4 mr-3 text-gray-400" />
+                          <div className="flex items-center text-xs text-gray-600">
+                            <Phone className="w-3 h-3 mr-2 text-[#0fa3ba]/60" />
                             <span>{user.phone}</span>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
-                        <div className="flex items-center space-x-3">
-                          <span className="text-2xl">
+                      <TableCell className="py-4 px-4">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">
                             {getCountryFlag(user.countryCode)}
                           </span>
-                          <span className="font-medium text-gray-700">
+                          <span className="font-medium text-gray-700 text-sm">
                             {user.country}
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-4">
                         <div className="space-y-1">
-                          <div className="font-medium text-gray-900 text-sm">
+                          <div className="font-medium text-gray-900 text-xs">
                             {user.joinedAt.split(" ")[0]}
                           </div>
                           <div className="text-xs text-gray-500">
@@ -409,15 +464,16 @@ export default function UsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
-                        <div className="font-semibold text-emerald-600 text-base">
-                          ${user.balance.toLocaleString()}
+                      <TableCell className="py-4 px-4">
+                        <div className="font-semibold flex gap-1 text-[#0fa3ba] text-sm">
+                          <div className="">₦</div>
+                          {user.balance.toLocaleString()}
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
-                        <div className="flex items-center space-x-2">
-                          <Star className="w-4 h-4 text-amber-400 fill-current" />
-                          <span className="font-semibold text-indigo-600 text-base">
+                      <TableCell className="py-4 px-4">
+                        <div className="flex items-center space-x-1">
+                          <Star className="w-3 h-3 text-[#0fa3ba] fill-current" />
+                          <span className="font-semibold text-[#0fa3ba] text-sm">
                             {user.emiralPoints.toLocaleString()}
                           </span>
                           <span className="text-xs text-gray-500 font-medium">
@@ -425,16 +481,16 @@ export default function UsersTable() {
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-4">
                         {getStatusBadge(user.status)}
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-4">
                         <div className="flex items-center justify-center space-x-2">
                           <Button
                             size="sm"
-                            className="bg-gradient-to-r from-[#e1fdff] to-white text-green-600 shadow-sm h-9 px-4 flex gap-2"
+                            className="bg-[#0fa3ba] hover:bg-[#0fa3ba]/90 text-white shadow-sm h-8 px-3 text-xs"
                           >
-                            <Eye className="w-4 h-4 my-auto" />
+                            <Eye className="w-3 h-3 mr-1" />
                             Plans
                           </Button>
                           <DropdownMenu>
@@ -442,23 +498,26 @@ export default function UsersTable() {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-9 w-9 p-0"
+                                className="h-8 w-8 p-0 hover:bg-[#0fa3ba]/10"
                               >
                                 <MoreHorizontal className="w-4 h-4" />
                               </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-48">
+                            <DropdownMenuContent
+                              align="end"
+                              className="w-48 bg-white shadow-lg border"
+                            >
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>
+                              <DropdownMenuItem className="hover:bg-[#0fa3ba]/10">
                                 <Eye className="w-4 h-4 mr-2" />
                                 View Details
                               </DropdownMenuItem>
-                              <DropdownMenuItem>
+                              <DropdownMenuItem className="hover:bg-[#0fa3ba]/10">
                                 <Edit className="w-4 h-4 mr-2" />
                                 Edit User
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem className="text-red-600">
+                              <DropdownMenuItem className="text-red-600 hover:bg-red-50">
                                 <Trash2 className="w-4 h-4 mr-2" />
                                 Delete User
                               </DropdownMenuItem>
