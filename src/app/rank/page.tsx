@@ -549,7 +549,7 @@ export default function UserRankTable() {
           </CardContent>
         </Card>
 
-        {/* Add Rank Modal */}
+        {/* Add Rank Modal*/}
         <AddRankModal
           isOpen={isAddRankModalOpen}
           onClose={() => setIsAddRankModalOpen(false)}
