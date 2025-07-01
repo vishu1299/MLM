@@ -28,8 +28,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Edit,
-  Eye,
-  EyeOff,
   Plus,
 } from "lucide-react";
 
@@ -278,6 +276,9 @@ export default function ProductTable() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-[#0fa3ba]/5 hover:bg-[#0fa3ba]/5 border-b border-[#0fa3ba]/10">
+                    <TableHead className="w-20 py-4 px-3 font-bold text-gray-700">
+                      Sr No.
+                    </TableHead>
                     <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[300px]">
                       Name
                     </TableHead>
@@ -302,6 +303,11 @@ export default function ProductTable() {
                       className="hover:bg-[#0fa3ba]/5 transition-colors border-b border-gray-100"
                     >
                       <TableCell className="py-4 px-3">
+                        <span className="font-medium text-gray-500 text-base">
+                          {startIndex + index + 1}
+                        </span>
+                      </TableCell>
+                      <TableCell className="py-4 px-3">
                         <div className="font-semibold text-gray-900 text-base">
                           {product.name}
                         </div>
@@ -318,23 +324,13 @@ export default function ProductTable() {
                       </TableCell>
                       <TableCell className="py-4 px-3">
                         {product.status === "Enable" ? (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-8 border border-green-600 text-green-600 bg-transparent"
-                          >
-                            <Eye className="w-4 h-4 mr-1" />
-                            Enable
-                          </Button>
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Enabled
+                          </span>
                         ) : (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-8 border border-red-600 text-red-600 bg-transparent"
-                          >
-                            <EyeOff className="w-4 h-4 mr-1" />
-                            Disable
-                          </Button>
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                            Disabled
+                          </span>
                         )}
                       </TableCell>
                       <TableCell className="py-4 px-3">
@@ -342,7 +338,7 @@ export default function ProductTable() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="h-8 border-blue-600 border text-blue-600"
+                            className="h-8 border-blue-600 border text-blue-600 bg-transparent"
                           >
                             <Edit className="w-4 h-4 mr-1" />
                             Edit
