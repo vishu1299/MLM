@@ -46,7 +46,7 @@ import {
   ChevronRight,
   Plus,
 } from "lucide-react";
-import { AddRankModal } from "./components/addrank-modal/page";
+import { AddRankModal } from "./components/modal";
 
 interface UserRankData {
   id: string;
