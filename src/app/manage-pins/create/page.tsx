@@ -26,59 +26,68 @@ import {
   RefreshCw,
   ChevronLeft,
   ChevronRight,
-  Edit,
-  Eye,
-  EyeOff,
   Plus,
 } from "lucide-react";
 
-interface RewardData {
+interface PinData {
   id: string;
-  name: string;
-  emiralPoints: string;
-  reward: string;
-  status: "Enabled" | "Disabled";
+  userAdmin: string;
+  userAdminSubtext: string;
+  batchId: string;
+  amount: string;
+  creationDate: string;
+  creationDateSubtext: string;
 }
 
-const mockRewards: RewardData[] = [
+const mockPins: PinData[] = [
   {
     id: "1",
-    name: "Travel",
-    emiralPoints: "79,200 EP",
-    reward: "1,500.00 ₦",
-    status: "Disabled",
+    userAdmin: "Created via admin",
+    userAdminSubtext: "admin",
+    batchId: "15885",
+    amount: "6 ₦",
+    creationDate: "2025-07-01 06:27 AM",
+    creationDateSubtext: "1 second ago",
   },
   {
     id: "2",
-    name: "Car",
-    emiralPoints: "168,000 EP",
-    reward: "4,500.00 ₦",
-    status: "Disabled",
+    userAdmin: "Created via admin",
+    userAdminSubtext: "admin",
+    batchId: "15884",
+    amount: "12 ₦",
+    creationDate: "2025-07-01 05:15 AM",
+    creationDateSubtext: "1 hour ago",
   },
   {
     id: "3",
-    name: "BRONZE",
-    emiralPoints: "2,360 EP",
-    reward: "33.00 ₦",
-    status: "Enabled",
+    userAdmin: "Created via admin",
+    userAdminSubtext: "admin",
+    batchId: "15883",
+    amount: "25 ₦",
+    creationDate: "2025-06-30 11:30 PM",
+    creationDateSubtext: "7 hours ago",
   },
   {
     id: "4",
-    name: "SILVER",
-    emiralPoints: "6,200 EP",
-    reward: "133.00 ₦",
-    status: "Enabled",
+    userAdmin: "Created via admin",
+    userAdminSubtext: "admin",
+    batchId: "15882",
+    amount: "50 ₦",
+    creationDate: "2025-06-30 09:45 PM",
+    creationDateSubtext: "9 hours ago",
   },
   {
     id: "5",
-    name: "GOLD",
-    emiralPoints: "14,700 EP",
-    reward: "400.00 ₦",
-    status: "Enabled",
+    userAdmin: "Created via admin",
+    userAdminSubtext: "admin",
+    batchId: "15881",
+    amount: "100 ₦",
+    creationDate: "2025-06-30 02:20 PM",
+    creationDateSubtext: "16 hours ago",
   },
 ];
 
-function AddRewardModal() {
+function CreateBatchModal() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -90,89 +99,52 @@ function AddRewardModal() {
           className="h-10 border-[#27ACC1] text-[#27ACC1] hover:bg-[#27ACC1] hover:text-white bg-transparent"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add Reward
+          Create Pin
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-white">
+      <DialogContent className="sm:max-w-[500px] bg-white">
         <DialogHeader>
           <DialogTitle className="text-[#27ACC1] text-xl font-semibold">
-            Add Reward
+            Create Pin
           </DialogTitle>
         </DialogHeader>
         <div className="grid gap-6 py-4">
-          <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label
-                htmlFor="reward-name"
-                className="text-[#27ACC1] font-medium"
-              >
-                Name <span className="text-red-500">*</span>
-              </Label>
+          <div className="space-y-2">
+            <Label htmlFor="amount" className="text-[#27ACC1] font-medium">
+              Amount <span className="text-red-500">*</span>
+            </Label>
+            <div className="relative">
               <Input
-                id="reward-name"
-                placeholder="Enter reward name"
-                className="border-[#27ACC1] focus:ring-[#27ACC1]"
+                id="amount"
+                placeholder="Enter Amount"
+                className="border-[#27ACC1] focus:ring-[#27ACC1] pr-16"
               />
-            </div>
-            <div className="space-y-2">
-              <Label
-                htmlFor="emiral-points"
-                className="text-[#27ACC1] font-medium"
-              >
-                Emiral Points <span className="text-red-500">*</span>
-              </Label>
-              <div className="relative">
-                <Input
-                  id="emiral-points"
-                  placeholder="Enter emiral points"
-                  className="border-[#27ACC1] focus:ring-[#27ACC1] pr-12"
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                  <span className="text-gray-500 text-sm">EP</span>
-                </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                <span className="bg-gray-100 px-3 py-1 rounded text-gray-600 text-sm font-medium">
+                  ₦
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label
-                htmlFor="reward-amount"
-                className="text-[#27ACC1] font-medium"
-              >
-                Reward Amount <span className="text-red-500">*</span>
-              </Label>
-              <div className="relative">
-                <Input
-                  id="reward-amount"
-                  placeholder="Enter reward amount"
-                  className="border-[#27ACC1] focus:ring-[#27ACC1] pr-12"
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                  <span className="text-gray-500 text-sm">₦</span>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="status" className="text-[#27ACC1] font-medium">
-                Status <span className="text-red-500">*</span>
-              </Label>
-              <select
-                id="status"
-                className="w-full px-3 py-2 border border-[#27ACC1] rounded-md focus:ring-[#27ACC1] focus:border-[#27ACC1]"
-              >
-                <option value="Enabled">Enabled</option>
-                <option value="Disabled">Disabled</option>
-              </select>
-            </div>
+          <div className="space-y-2">
+            <Label htmlFor="total-pins" className="text-[#27ACC1] font-medium">
+              Total Number of Pin <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="total-pins"
+              placeholder="Enter Number"
+              type="number"
+              className="border-[#27ACC1] focus:ring-[#27ACC1]"
+            />
           </div>
 
           <div className="flex justify-center pt-4">
             <Button
-              className="bg-[#27ACC1] hover:bg-[#27ACC1]/90 text-white px-8 py-2 text-lg"
+              className="bg-[#27ACC1] hover:bg-[#27ACC1]/90 text-white px-8 py-2 text-lg w-full"
               onClick={() => setOpen(false)}
             >
-              Add Reward
+              Create
             </Button>
           </div>
         </div>
@@ -181,18 +153,18 @@ function AddRewardModal() {
   );
 }
 
-export default function RewardsTable() {
+export default function PinsTable() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 10;
 
-  const filteredRewards = useMemo(() => {
-    return mockRewards;
+  const filteredPins = useMemo(() => {
+    return mockPins;
   }, []);
 
-  const totalPages = Math.ceil(filteredRewards.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredPins.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedRewards = filteredRewards.slice(
+  const paginatedPins = filteredPins.slice(
     startIndex,
     startIndex + itemsPerPage
   );
@@ -205,9 +177,9 @@ export default function RewardsTable() {
           <div className="flex items-center justify-between">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-                Redeem Plan List
+                All Pins
               </h1>
-              <p className="text-gray-500 text-sm">Manage reward system</p>
+              <p className="text-gray-500 text-sm">Manage pin batches</p>
             </div>
             <div className="flex items-center space-x-3">
               <Button
@@ -218,7 +190,7 @@ export default function RewardsTable() {
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
-              <AddRewardModal />
+              <CreateBatchModal />
               <Button
                 variant="outline"
                 size="default"
@@ -241,27 +213,27 @@ export default function RewardsTable() {
                     <TableHead className="w-20 py-4 px-3 font-bold text-gray-700">
                       Sr No.
                     </TableHead>
-                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[150px]">
-                      Name
-                    </TableHead>
-                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[140px]">
-                      Emiral Points
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[200px]">
+                      User | Admin
                     </TableHead>
                     <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[120px]">
-                      Reward
+                      Batch Id
                     </TableHead>
                     <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[120px]">
-                      Status
+                      Amount
                     </TableHead>
-                    <TableHead className="py-4 px-3 font-bold text-gray-700 text-center min-w-[200px]">
-                      Action
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[120px]">
+                      Pins
+                    </TableHead>
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[180px]">
+                      Creation Date
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {paginatedRewards.map((reward, index) => (
+                  {paginatedPins.map((pin, index) => (
                     <TableRow
-                      key={reward.id}
+                      key={pin.id}
                       className="hover:bg-[#0fa3ba]/5 transition-colors border-b border-gray-100"
                     >
                       <TableCell className="py-4 px-3">
@@ -270,60 +242,41 @@ export default function RewardsTable() {
                         </span>
                       </TableCell>
                       <TableCell className="py-4 px-3">
+                        <div className="space-y-1">
+                          <div className="font-semibold text-gray-900 text-base">
+                            {pin.userAdmin}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {pin.userAdminSubtext}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="py-4 px-3">
+                        <div className="font-semibold text-[#0fa3ba] text-base">
+                          {pin.batchId}
+                        </div>
+                      </TableCell>
+                      <TableCell className="py-4 px-3">
                         <div className="font-semibold text-gray-900 text-base">
-                          {reward.name}
+                          {pin.amount}
                         </div>
                       </TableCell>
                       <TableCell className="py-4 px-3">
-                        <div className="font-semibold text-[#0fa3ba] text-base">
-                          {reward.emiralPoints}
-                        </div>
+                        <Button
+                          size="sm"
+                          className="h-8 bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          Pins
+                        </Button>
                       </TableCell>
                       <TableCell className="py-4 px-3">
-                        <div className="font-semibold text-[#0fa3ba] text-base">
-                          {reward.reward}
-                        </div>
-                      </TableCell>
-                      <TableCell className="py-4 px-3">
-                        {reward.status === "Enabled" ? (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            Enabled
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                            Disabled
-                          </span>
-                        )}
-                      </TableCell>
-                      <TableCell className="py-4 px-3">
-                        <div className="flex items-center justify-center space-x-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-8 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white bg-transparent"
-                          >
-                            <Edit className="w-4 h-4 mr-1" />
-                            Edit
-                          </Button>
-                          {reward.status === "Enabled" ? (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="h-8 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white bg-transparent"
-                            >
-                              <EyeOff className="w-4 h-4 mr-1" />
-                              Disable
-                            </Button>
-                          ) : (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="h-8 border border-green-600 text-green-600 hover:bg-green-600 hover:text-white bg-transparent"
-                            >
-                              <Eye className="w-4 h-4 mr-1" />
-                              Enable
-                            </Button>
-                          )}
+                        <div className="space-y-1">
+                          <div className="font-medium text-gray-900 text-base">
+                            {pin.creationDate}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {pin.creationDateSubtext}
+                          </div>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -336,8 +289,8 @@ export default function RewardsTable() {
             <div className="flex items-center justify-between mt-6">
               <div className="text-sm text-gray-500">
                 Showing {startIndex + 1} to{" "}
-                {Math.min(startIndex + itemsPerPage, filteredRewards.length)} of{" "}
-                {filteredRewards.length} results
+                {Math.min(startIndex + itemsPerPage, filteredPins.length)} of{" "}
+                {filteredPins.length} results
               </div>
               <div className="flex items-center space-x-2">
                 <Button

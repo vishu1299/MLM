@@ -131,12 +131,16 @@ const menuItems: MenuItem[] = [
     href: "/manage-pins",
     hasSubmenu: true,
     submenuItems: [
-      { id: "create-pin", label: "Create Pin", href: "/manage-pins/create" },
-      { id: "pin-history", label: "Pin History", href: "/manage-pins/history" },
+      { id: "create-pin", label: "All Pins", href: "/manage-pins/create" },
+      {
+        id: "pin-history",
+        label: "User Pins",
+        href: "/manage-pins/user-pins",
+      },
       {
         id: "pin-settings",
-        label: "Pin Settings",
-        href: "/manage-pins/settings",
+        label: "Admin Pins",
+        href: "/manage-pins/admin-pins",
       },
     ],
   },
@@ -149,18 +153,13 @@ const menuItems: MenuItem[] = [
     submenuItems: [
       {
         id: "gateway-config",
-        label: "Gateway Configuration",
-        href: "/payment-gateways/config",
+        label: "Automatic Gateway",
+        href: "/payment-gateways/automatic",
       },
       {
         id: "transaction-logs",
-        label: "Transaction Logs",
-        href: "/payment-gateways/logs",
-      },
-      {
-        id: "payment-methods",
-        label: "Payment Methods",
-        href: "/payment-gateways/methods",
+        label: "Manual Gateway",
+        href: "/payment-gateways/manual",
       },
     ],
   },
@@ -313,10 +312,10 @@ export default function Sidebar() {
       <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <Image
-            src="/assets/image/logo/logo.png"
+            src="/assets/image/logo/logo.jpg"
             alt="Logo"
-            width={140}
-            height={140}
+            width={130}
+            height={130}
             className="mr-2"
           />
         </div>
