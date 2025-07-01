@@ -16,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,7 +28,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Search,
   MoreHorizontal,
   User,
   Mail,
@@ -54,7 +52,6 @@ interface BannedUserData {
   username: string;
   email: string;
   phone: string;
-  country: string;
   countryCode: string;
   joinedAt: string;
   timeAgo: string;
@@ -72,7 +69,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "grouppoint4teshi",
     email: "grouppoint4@gmail.com",
     phone: "2341123123",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-23 09:47 AM",
     timeAgo: "2 days ago",
@@ -87,7 +83,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "lemgvanny",
     email: "ifeoluwag@gmail.com",
     phone: "23470685785",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-18 01:05 PM",
     timeAgo: "1 week ago",
@@ -102,7 +97,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "grouppoint10",
     email: "grouppoint10@gmail.com",
     phone: "2341010",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-17 02:44 AM",
     timeAgo: "1 week ago",
@@ -117,7 +111,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "grouppoint19",
     email: "grouppoint19@gmail.com",
     phone: "2345454",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-17 02:27 AM",
     timeAgo: "1 week ago",
@@ -132,7 +125,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "grouppoint18",
     email: "grouppoint18@gmail.com",
     phone: "23422222",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-17 01:10 AM",
     timeAgo: "1 week ago",
@@ -147,7 +139,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "efualola1",
     email: "apple4me_you@yahoo.com",
     phone: "23409025676085",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-05 10:12 PM",
     timeAgo: "2 weeks ago",
@@ -162,7 +153,6 @@ const mockBannedUsers: BannedUserData[] = [
     username: "harryman2",
     email: "bgct159@gmail.com",
     phone: "23480750981144",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2025-06-04 02:47 PM",
     timeAgo: "3 weeks ago",
@@ -174,19 +164,12 @@ const mockBannedUsers: BannedUserData[] = [
 ];
 
 export default function BannedUsersTable() {
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const filteredUsers = useMemo(() => {
-    return mockBannedUsers.filter((user) => {
-      const matchesSearch =
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesSearch;
-    });
-  }, [searchTerm]);
+    return mockBannedUsers;
+  }, []);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -194,16 +177,6 @@ export default function BannedUsersTable() {
     startIndex,
     startIndex + itemsPerPage
   );
-
-  const getCountryFlag = (countryCode: string) => {
-    const flags: { [key: string]: string } = {
-      NG: "🇳🇬",
-      US: "🇺🇸",
-      GB: "🇬🇧",
-      CA: "🇨🇦",
-    };
-    return flags[countryCode] || "🌍";
-  };
 
   return (
     <div className="min-h-screen ">
@@ -223,7 +196,7 @@ export default function BannedUsersTable() {
               <Button
                 variant="outline"
                 size="default"
-                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white"
+                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white bg-transparent"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Export
@@ -231,23 +204,12 @@ export default function BannedUsersTable() {
               <Button
                 variant="outline"
                 size="default"
-                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white"
+                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white bg-transparent"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
             </div>
-          </div>
-          {/* Search Section */}
-
-          <div className="relative max-w-md">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input
-              placeholder="Username / Email"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 h-12 text-base border-gray-200 focus:border-[#0fa3ba] focus:ring-[#0fa3ba]"
-            />
           </div>
         </div>
 
@@ -279,43 +241,43 @@ export default function BannedUsersTable() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-[#0fa3ba]/5 hover:bg-[#0fa3ba]/5 border-b border-[#0fa3ba]/10">
-                    <TableHead className="w-20 py-6 px-6 font-semibold text-gray-700">
+                    <TableHead className="w-20 py-4 px-3 font-semibold text-gray-700">
                       #
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[280px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 min-w-[240px]">
                       <div className="flex items-center">
                         <User className="w-4 h-4 mr-2 text-[#0fa3ba]" />
                         User
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[260px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 min-w-[220px]">
                       <div className="flex items-center">
                         <Mail className="w-4 h-4 mr-2 text-[#0fa3ba]" />
                         Email-Phone
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[120px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 min-w-[100px]">
                       <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-2 text-[#0fa3ba]" />
                         Country
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[180px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 min-w-[140px]">
                       <div className="flex items-center">
                         <Calendar className="w-4 h-4 mr-2 text-[#0fa3ba]" />
                         Joined At
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[120px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 min-w-[100px]">
                       <div className="flex items-center">Balance (₦)</div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[140px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 min-w-[120px]">
                       <div className="flex items-center">
                         <Star className="w-4 h-4 mr-2 text-[#0fa3ba]" />
                         Emiral Points
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 text-center min-w-[120px]">
+                    <TableHead className="py-4 px-3 font-semibold text-gray-700 text-center min-w-[100px]">
                       Action
                     </TableHead>
                   </TableRow>
@@ -326,12 +288,12 @@ export default function BannedUsersTable() {
                       key={user.id}
                       className="hover:bg-[#0fa3ba]/5 transition-colors border-b border-gray-100"
                     >
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <span className="font-medium text-gray-500 text-base">
                           {startIndex + index + 1}
                         </span>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="flex items-center space-x-4">
                           <Avatar className="w-12 h-12">
                             <AvatarImage
@@ -359,7 +321,7 @@ export default function BannedUsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="space-y-2">
                           <div className="flex items-center text-sm text-gray-700">
                             <Mail className="w-4 h-4 mr-3 text-[#0fa3ba]/60" />
@@ -371,17 +333,14 @@ export default function BannedUsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="flex items-center space-x-2">
-                          <span className="text-xl">
-                            {getCountryFlag(user.countryCode)}
-                          </span>
-                          <span className="font-medium text-gray-700 text-sm">
-                            {user.country}
+                          <span className="text-sm font-medium">
+                            {user.countryCode}
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="space-y-1">
                           <div className="font-medium text-gray-900 text-sm">
                             {user.joinedAt.split(" ")[0]}
@@ -391,17 +350,17 @@ export default function BannedUsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="font-semibold text-gray-600 text-base">
                           ₦{user.balance.toFixed(2)}
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="font-semibold text-[#0fa3ba] text-base">
                           {user.emiralPoints.toLocaleString()} EP
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="flex items-center justify-center space-x-2">
                           <Button
                             size="sm"

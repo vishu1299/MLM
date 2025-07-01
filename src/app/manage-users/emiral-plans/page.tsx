@@ -52,7 +52,6 @@ interface UserData {
   username: string;
   email: string;
   phone: string;
-  country: string;
   countryCode: string;
   joinedAt: string;
   balance: number;
@@ -68,7 +67,6 @@ const mockUsers: UserData[] = [
     username: "demodbc",
     email: "adsdmin@gmail.com",
     phone: "9312345673232",
-    country: "Afghanistan",
     countryCode: "AF",
     joinedAt: "2024-08-07 07:10 PM",
     balance: 1622.5,
@@ -81,7 +79,6 @@ const mockUsers: UserData[] = [
     username: "demo001",
     email: "oabire@gmail.com",
     phone: "23409049249255",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2024-08-07 07:18 PM",
     balance: 2878.84,
@@ -94,7 +91,6 @@ const mockUsers: UserData[] = [
     username: "eboonyb",
     email: "iyabobisola@gmail.com",
     phone: "2348128879963",
-    country: "Nigeria",
     countryCode: "NG",
     joinedAt: "2024-12-19 09:43 AM",
     balance: 11.04,
@@ -107,7 +103,6 @@ const mockUsers: UserData[] = [
     username: "johnsmith",
     email: "john.smith@example.com",
     phone: "1234567890",
-    country: "United States",
     countryCode: "US",
     joinedAt: "2024-01-15 02:30 PM",
     balance: 5432.1,
@@ -120,7 +115,6 @@ const mockUsers: UserData[] = [
     username: "mariagarcia",
     email: "maria.garcia@example.com",
     phone: "9876543210",
-    country: "Spain",
     countryCode: "ES",
     joinedAt: "2024-03-22 11:45 AM",
     balance: 987.65,
@@ -159,16 +153,6 @@ export default function UsersTable() {
     }
   };
 
-  const getCountryFlag = (countryCode: string) => {
-    const flags: { [key: string]: string } = {
-      AF: "🇦🇫",
-      NG: "🇳🇬",
-      US: "🇺🇸",
-      ES: "🇪🇸",
-    };
-    return flags[countryCode] || "🌍";
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
       <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -187,7 +171,7 @@ export default function UsersTable() {
               <Button
                 variant="outline"
                 size="default"
-                className="border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white transition-colors"
+                className="border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white transition-colors bg-transparent"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Export
@@ -195,7 +179,7 @@ export default function UsersTable() {
               <Button
                 variant="outline"
                 size="default"
-                className="border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white transition-colors"
+                className="border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white transition-colors bg-transparent"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
@@ -350,49 +334,49 @@ export default function UsersTable() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-[#0fa3ba]/5 hover:bg-[#0fa3ba]/5 border-b border-[#0fa3ba]/10">
-                    <TableHead className="w-16 py-4 px-4 font-bold text-sm text-gray-700">
-                      #
+                    <TableHead className="w-16 py-4 px-2 font-bold text-sm text-gray-700">
+                      Serial no.
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[280px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[240px]">
                       <div className="flex items-center ">
                         <User className="w-5 h-5 mr-2 text-black" />
                         User Details
                       </div>
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[260px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[220px]">
                       <div className="flex items-center">
                         <Mail className="w-5 h-5 mr-2 text-black" />
                         Contact Information
                       </div>
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[100px]">
                       <div className="flex items-center">
                         <MapPin className="w-5 h-5 mr-2 text-black" />
                         Country
                       </div>
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[180px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[140px]">
                       <div className="flex items-center">
                         <Calendar className="w-5 h-5 mr-2 text-black" />
                         Joined Date
                       </div>
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[140px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[120px]">
                       <div className="flex items-center">
                         <div className="text-xl mr-2 text-black">₦</div>
                         Balance
                       </div>
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[140px]">
                       <div className="flex items-center">
                         <Star className="w-5 h-5 mr-2 text-black" />
                         Emiral Points
                       </div>
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 min-w-[120px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 min-w-[100px]">
                       Status
                     </TableHead>
-                    <TableHead className="py-4 px-4 font-bold text-sm text-gray-700 text-center min-w-[160px]">
+                    <TableHead className="py-4 px-2 font-bold text-sm text-gray-700 text-center min-w-[140px]">
                       Actions
                     </TableHead>
                   </TableRow>
@@ -403,12 +387,12 @@ export default function UsersTable() {
                       key={user.id}
                       className="hover:bg-[#0fa3ba]/5 transition-colors border-b border-gray-100"
                     >
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <span className="font-medium text-gray-500">
                           {index + 1}
                         </span>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="flex items-center space-x-3">
                           <Avatar className="w-10 h-10">
                             <AvatarImage
@@ -432,7 +416,7 @@ export default function UsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="space-y-1">
                           <div className="flex items-center text-xs text-gray-700">
                             <Mail className="w-3 h-3 mr-2 text-[#0fa3ba]/60" />
@@ -444,17 +428,15 @@ export default function UsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="flex items-center space-x-2">
-                          <span className="text-lg">
-                            {getCountryFlag(user.countryCode)}
-                          </span>
+                          <span className="text-lg"></span>
                           <span className="font-medium text-gray-700 text-sm">
-                            {user.country}
+                            {user.countryCode}
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="space-y-1">
                           <div className="font-medium text-gray-900 text-xs">
                             {user.joinedAt.split(" ")[0]}
@@ -464,13 +446,13 @@ export default function UsersTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="font-semibold flex gap-1 text-[#0fa3ba] text-sm">
                           <div className="">₦</div>
                           {user.balance.toLocaleString()}
                         </div>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="flex items-center space-x-1">
                           <Star className="w-3 h-3 text-[#0fa3ba] fill-current" />
                           <span className="font-semibold text-[#0fa3ba] text-sm">
@@ -481,10 +463,10 @@ export default function UsersTable() {
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         {getStatusBadge(user.status)}
                       </TableCell>
-                      <TableCell className="py-4 px-4">
+                      <TableCell className="py-4 px-2">
                         <div className="flex items-center justify-center space-x-2">
                           <Button
                             size="sm"

@@ -16,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,7 +28,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Search,
   MoreHorizontal,
   User,
   Mail,
@@ -46,7 +44,9 @@ import {
   Medal,
   ChevronLeft,
   ChevronRight,
+  Plus,
 } from "lucide-react";
+import { AddRankModal } from "./components/addrank-modal/page";
 
 interface UserRankData {
   id: string;
@@ -134,19 +134,13 @@ const mockUserRanks: UserRankData[] = [
 ];
 
 export default function UserRankTable() {
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isAddRankModalOpen, setIsAddRankModalOpen] = useState(false);
   const itemsPerPage = 10;
 
   const filteredUsers = useMemo(() => {
-    return mockUserRanks.filter((user) => {
-      const matchesSearch =
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesSearch;
-    });
-  }, [searchTerm]);
+    return mockUserRanks;
+  }, []);
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -223,7 +217,7 @@ export default function UserRankTable() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto  space-y-8">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header Section */}
         <div className="flex flex-col space-y-8">
           <div className="flex items-center justify-between">
@@ -237,9 +231,16 @@ export default function UserRankTable() {
             </div>
             <div className="flex items-center space-x-3">
               <Button
+                onClick={() => setIsAddRankModalOpen(true)}
+                className="h-10 bg-[#0fa3ba] hover:bg-[#0fa3ba]/90 text-white"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Rank
+              </Button>
+              <Button
                 variant="outline"
                 size="default"
-                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white"
+                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white bg-transparent"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Export
@@ -247,34 +248,13 @@ export default function UserRankTable() {
               <Button
                 variant="outline"
                 size="default"
-                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white"
+                className="h-10 border-[#0fa3ba] text-[#0fa3ba] hover:bg-[#0fa3ba] hover:text-white bg-transparent"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
             </div>
           </div>
-
-          {/* Search Section */}
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl flex items-center text-gray-800">
-                <Search className="w-5 h-5 mr-3 text-[#0fa3ba]" />
-                Search Users
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="relative max-w-md">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  placeholder="Username / Email"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 h-12 text-base border-gray-200 focus:border-[#0fa3ba] focus:ring-[#0fa3ba]"
-                />
-              </div>
-            </CardContent>
-          </Card>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -373,46 +353,46 @@ export default function UserRankTable() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-[#0fa3ba]/5 hover:bg-[#0fa3ba]/5 border-b border-[#0fa3ba]/10">
-                    <TableHead className="w-20 py-6 px-6 font-semibold text-gray-700">
-                      #
+                    <TableHead className="w-20 py-4 px-3 font-bold text-gray-700">
+                      Serial no.
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[280px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[240px]">
                       <div className="flex items-center">
-                        <User className="w-4 h-4 mr-2 text-[#0fa3ba]" />
-                        User
+                        <User className="w-5 h-5 mr-2" />
+                        User Details
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[260px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[220px]">
                       <div className="flex items-center">
-                        <Mail className="w-4 h-4 mr-2 text-[#0fa3ba]" />
+                        <Mail className="w-5 h-5 mr-2 " />
                         Email-Phone
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[120px]">
                       <div className="flex items-center">
-                        <Trophy className="w-4 h-4 mr-2 text-[#0fa3ba]" />
+                        <Trophy className="w-5 h-5 mr-2" />
                         Badge
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[140px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[120px]">
                       <div className="flex items-center">
-                        <Award className="w-4 h-4 mr-2 text-[#0fa3ba]" />
+                        <Award className="w-5 h-5 mr-2 " />
                         Rank
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[140px]">
                       <div className="flex items-center">
-                        <Star className="w-4 h-4 mr-2 text-[#0fa3ba]" />
+                        <Star className="w-5 h-5 mr-2" />
                         Group Points
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 min-w-[160px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 min-w-[140px]">
                       <div className="flex items-center">
-                        <Star className="w-4 h-4 mr-2 text-[#0fa3ba]" />
+                        <Star className="w-5 h-5 mr-2 " />
                         Personal Points
                       </div>
                     </TableHead>
-                    <TableHead className="py-6 px-6 font-semibold text-gray-700 text-center min-w-[120px]">
+                    <TableHead className="py-4 px-3 font-bold text-gray-700 text-center min-w-[100px]">
                       Actions
                     </TableHead>
                   </TableRow>
@@ -423,12 +403,12 @@ export default function UserRankTable() {
                       key={user.id}
                       className="hover:bg-[#0fa3ba]/5 transition-colors border-b border-gray-100"
                     >
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <span className="font-medium text-gray-500 text-base">
                           {startIndex + index + 1}
                         </span>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="flex items-center space-x-4">
                           <Avatar className="w-12 h-12">
                             <AvatarImage
@@ -452,7 +432,7 @@ export default function UserRankTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="space-y-2">
                           <div className="flex items-center text-sm text-gray-700">
                             <Mail className="w-4 h-4 mr-3 text-[#0fa3ba]/60" />
@@ -464,27 +444,27 @@ export default function UserRankTable() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="flex items-center justify-center">
                           <span className="text-3xl">
                             {getRankIcon(user.rank)}
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         {getRankBadge(user.rank)}
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="font-semibold text-[#0fa3ba] text-base">
                           {user.groupPoints.toLocaleString()} EP
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <div className="font-semibold text-[#0fa3ba] text-base">
                           {user.personalPoints.toLocaleString()} EP
                         </div>
                       </TableCell>
-                      <TableCell className="py-6 px-6">
+                      <TableCell className="py-4 px-3">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -568,6 +548,12 @@ export default function UserRankTable() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Add Rank Modal */}
+        <AddRankModal
+          isOpen={isAddRankModalOpen}
+          onClose={() => setIsAddRankModalOpen(false)}
+        />
       </div>
     </div>
   );

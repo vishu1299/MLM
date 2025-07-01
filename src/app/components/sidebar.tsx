@@ -63,27 +63,12 @@ const menuItems: MenuItem[] = [
         label: "Users Emiral Plans",
         href: "/manage-users/emiral-plans",
       },
-      { id: "user-ranks", label: "User Ranks", href: "/manage-users/rank" },
       {
         id: "banned-users",
         label: "Banned Users",
         href: "/manage-users/banned",
       },
-      {
-        id: "email-unverified",
-        label: "Email Unverified",
-        href: "/manage-users/email-unverified",
-      },
-      {
-        id: "kyc-unverified",
-        label: "KYC Unverified",
-        href: "/manage-users/kyc-unverified",
-      },
-      {
-        id: "kyc-pending",
-        label: "KYC Pending",
-        href: "/manage-users/kyc-pending",
-      },
+
       {
         id: "with-balance",
         label: "With Balance",
@@ -101,13 +86,13 @@ const menuItems: MenuItem[] = [
     id: "user-rank",
     label: "User Rank",
     icon: FaChartLine,
-    href: "/user-rank",
+    href: "/rank",
   },
   {
     id: "add-ep",
     label: "Add EP",
     icon: FaDollarSign,
-    href: "/add-ep",
+    href: "/user-ep",
   },
   {
     id: "referrals",
