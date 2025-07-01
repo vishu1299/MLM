@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+
 import {
   Table,
   TableBody,
@@ -40,10 +41,14 @@ import {
   Trash2,
   Download,
   RefreshCw,
+  Smartphone,
   MailX,
   ShieldX,
   Clock,
   ArrowUpRight,
+  Wallet,
+  Users,
+  Bell,
 } from "lucide-react";
 
 interface UserData {
@@ -187,61 +192,56 @@ export default function UsersTable() {
             </div>
           </div>
 
-          {/* Compact Status Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* mobile Unverified Card */}
+          {/* Status Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4">
+            {/* Mobile Unverified Card */}
             <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-transparent to-transparent"></div>
-              <div className="absolute top-0 right-0 w-12 h-12 bg-purple-100 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-purple-50 text-purple-700 border-purple-200 text-xs px-2 py-0.5">
+                  High Priority
+                </Badge>
+              </div>
               <CardContent className="p-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
                     <div className="p-2 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
-                      <MailX className="w-4 h-4 text-purple-600" />
+                      <Smartphone className="w-5 h-5 text-purple-600" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-sm">
-                        Mobile Unverified
-                      </h3>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <div className="text-xl font-bold text-gray-900">
-                          299
-                        </div>
-                        <Badge className="bg-purple-50 text-purple-700 border-purple-200 text-xs px-2 py-0.5">
-                          High Priority
-                        </Badge>
-                      </div>
-                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-purple-600 transition-colors" />
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-purple-600 transition-colors" />
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      Mobile Unverified
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">299</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
+
             {/* Email Unverified Card */}
             <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-red-50 via-transparent to-transparent"></div>
-              <div className="absolute top-0 right-0 w-12 h-12 bg-red-100 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-red-50 text-red-700 border-red-200 text-xs px-2 py-0.5">
+                  High Priority
+                </Badge>
+              </div>
               <CardContent className="p-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
                     <div className="p-2 bg-red-100 rounded-lg group-hover:bg-red-200 transition-colors">
-                      <MailX className="w-4 h-4 text-red-600" />
+                      <MailX className="w-5 h-5 text-red-600" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-sm">
-                        Email Unverified
-                      </h3>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <div className="text-xl font-bold text-gray-900">
-                          247
-                        </div>
-                        <Badge className="bg-red-50 text-red-700 border-red-200 text-xs px-2 py-0.5">
-                          High Priority
-                        </Badge>
-                      </div>
-                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 transition-colors" />
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 transition-colors" />
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      Email Unverified
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">247</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -249,28 +249,25 @@ export default function UsersTable() {
             {/* KYC Unverified Card */}
             <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-transparent to-transparent"></div>
-              <div className="absolute top-0 right-0 w-12 h-12 bg-amber-100 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-amber-50 text-amber-700 border-amber-200 text-xs px-2 py-0.5">
+                  Action Required
+                </Badge>
+              </div>
               <CardContent className="p-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
                     <div className="p-2 bg-amber-100 rounded-lg group-hover:bg-amber-200 transition-colors">
-                      <ShieldX className="w-4 h-4 text-amber-600" />
+                      <ShieldX className="w-5 h-5 text-amber-600" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-sm">
-                        KYC Unverified
-                      </h3>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <div className="text-xl font-bold text-gray-900">
-                          156
-                        </div>
-                        <Badge className="bg-amber-50 text-amber-700 border-amber-200 text-xs px-2 py-0.5">
-                          Action Required
-                        </Badge>
-                      </div>
-                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors" />
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors" />
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      KYC Unverified
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">156</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -278,28 +275,112 @@ export default function UsersTable() {
             {/* KYC Pending Card */}
             <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-[#0fa3ba]/10 via-transparent to-transparent"></div>
-              <div className="absolute top-0 right-0 w-12 h-12 bg-[#0fa3ba]/20 rounded-full -translate-y-6 translate-x-6 opacity-20"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-[#0fa3ba]/10 text-[#0fa3ba] border-[#0fa3ba]/20 text-xs px-2 py-0.5">
+                  In Progress
+                </Badge>
+              </div>
               <CardContent className="p-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
                     <div className="p-2 bg-[#0fa3ba]/10 rounded-lg group-hover:bg-[#0fa3ba]/20 transition-colors">
-                      <Clock className="w-4 h-4 text-[#0fa3ba]" />
+                      <Clock className="w-5 h-5 text-[#0fa3ba]" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-sm">
-                        KYC Pending
-                      </h3>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <div className="text-xl font-bold text-gray-900">
-                          89
-                        </div>
-                        <Badge className="bg-[#0fa3ba]/10 text-[#0fa3ba] border-[#0fa3ba]/20 text-xs px-2 py-0.5">
-                          In Progress
-                        </Badge>
-                      </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#0fa3ba] transition-colors" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      KYC Pending
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">89</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Total Balance Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-transparent to-transparent"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-green-50 text-green-700 border-green-200 text-xs px-2 py-0.5">
+                  Total
+                </Badge>
+              </div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                      <Wallet className="w-5 h-5 text-green-600" />
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-green-600 transition-colors" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      Total Balance
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">
+                      ₦
+                      {filteredUsers
+                        .reduce((sum, user) => sum + user.balance, 0)
+                        .toLocaleString()}
                     </div>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#0fa3ba] transition-colors" />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* All Users Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-transparent"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-blue-50 text-blue-700 border-blue-200 text-xs px-2 py-0.5">
+                  Active
+                </Badge>
+              </div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                      <Users className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      All Users
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">
+                      {filteredUsers.length.toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* All Notifications Card */}
+            <Card className="group relative bg-white border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-transparent to-transparent"></div>
+              <div className="absolute top-2 right-2 z-20">
+                <Badge className="bg-indigo-50 text-indigo-700 border-indigo-200 text-xs px-2 py-0.5">
+                  Recent
+                </Badge>
+              </div>
+              <CardContent className="p-4 relative z-10">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="p-2 bg-indigo-100 rounded-lg group-hover:bg-indigo-200 transition-colors">
+                      <Bell className="w-5 h-5 text-indigo-600" />
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                      All Notifications
+                    </h3>
+                    <div className="text-2xl font-bold text-gray-900">
+                      1,247
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

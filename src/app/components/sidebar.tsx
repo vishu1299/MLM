@@ -69,17 +69,17 @@ const menuItems: MenuItem[] = [
         href: "/manage-users/banned",
       },
 
-      {
-        id: "with-balance",
-        label: "With Balance",
-        href: "/manage-users/with-balance",
-      },
-      { id: "all-users", label: "All Users", href: "/manage-users/all" },
-      {
-        id: "all-notifications",
-        label: "All Notifications",
-        href: "/manage-users/notifications",
-      },
+      // {
+      //   id: "with-balance",
+      //   label: "With Balance",
+      //   href: "/manage-users/with-balance",
+      // },
+      // { id: "all-users", label: "All Users", href: "/manage-users/all" },
+      // {
+      //   id: "all-notifications",
+      //   label: "All Notifications",
+      //   href: "/manage-users/notifications",
+      // },
     ],
   },
   {
