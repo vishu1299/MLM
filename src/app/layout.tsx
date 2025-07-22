@@ -30,15 +30,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex h-screen w-screen overflow-hidden">
-          {/* Sidebar with fixed width */}
           <Sidebar />
-
           {/* Content area */}
           <div className="flex flex-col flex-1 overflow-hidden">
-            {/* Header with fixed height */}
             <Header />
-
-            {/* Main content scrollable */}
             <main className="flex-1 overflow-y-auto p-4 bg-gray-50">
               {children}
             </main>
