@@ -15,11 +15,7 @@ import {
   FaClipboardList,
   FaCalendarAlt,
   FaKey,
-  FaCreditCard,
-  FaUniversity,
-  FaHeadset,
-  FaChartBar,
-  FaUserCheck,
+  
   FaChevronDown,
   FaChevronUp,
   FaChevronLeft,
