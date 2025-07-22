@@ -7,10 +7,15 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import SimpleMDE from "react-simplemde-editor"
+import dynamic from "next/dynamic"
 import "easymde/dist/easymde.min.css"
 
 import { Download, RefreshCw, ChevronLeft, ChevronRight, Edit, EyeOff, Plus } from "lucide-react"
+
+// Dynamically import SimpleMDE with no SSR
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+})
 
 interface ManualGatewayData {
   id: string
